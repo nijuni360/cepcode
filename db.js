@@ -1,43 +1,18 @@
-var MongoClient = require('mongodb').MongoClient;
-
+const mongoose = require("mongoose");
+require('./schemas')
 
 
 var servidor = 'mongodb://localhost:27017/db_cep';
 
-
-
-
-MongoClient.connect(servidor, function(erro, db) {
-    if(erro)
-        console.log("Erro ao estabelecer conexão:" +erro);
-    else
-        console.log("Conexão estabelecida com suceddo");
-
+mongoose.connect(servidor, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}, (err) => {
+    if (!err) {
+        console.log("conectado")
+    }
+    else { console.log("erro para logar" + err) }
     
-    var cep = {
-        cep : "05182-040" ,
-        endereço : {} ,
-        numero : {} ,
-        complemento : {} ,
-        cidade : {},
-
-              
-    };
-    
-    
-    var dbo = db.db("db_cep");
-    var colecao = dbo.collection("usuarios");
-
-
-    colecao.insertOne(cep, function(erro, resultado){
-        if(erro)
-            console.log("Erro ao inserir documento: " + erro);
-        else
-            console.log("Documento inserido com seucesso");
-    });
-
-     
-    
-    
-    db.close();
-});
+})
