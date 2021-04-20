@@ -15,6 +15,7 @@ mongoose.model('ceps', Cep)
 
 var Pessoas = new mongoose.Schema({
     nome:String,
-    sobrenome:String
+    sobrenome:String,
+    cep:String
 })
 mongoose.model('person', Pessoas)
